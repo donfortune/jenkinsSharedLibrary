@@ -1,11 +1,11 @@
 #!/usr/bin/env groovy
 
-def call () {
+def call (String ImageName) {  
     echo "Building Jar File"
     withCredentials([usernamePassword(credentialsId: 'docker-credentials', passwordVariable: 'PWD', usernameVariable: 'USERNAME')]) {
         
-        sh 'docker build -t donfortune1/my-repo:bukky-90.1 .'
+        sh "docker build -t $ImageName ."
         sh "docker login -u $USERNAME -p $PWD"
-        sh 'docker push donfortune1/my-repo:bukky-90.1'
+        sh "docker push $ImageName"
     }
 }
